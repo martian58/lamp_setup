@@ -69,7 +69,7 @@ render_screen
 update_task_status 0 "In Progress"
 lsb_release -a
 
-sudo apt-get update -y >/dev/null 2>&1 && sudo apt-get upgrade -y --assume-yes >/dev/null 2>&1
+sudo apt-get update -y  && sudo apt-get upgrade -y --assume-yes  
 if [ $? -eq 0 ]; then
     update_task_status 0 "Done"
 else
@@ -89,7 +89,7 @@ fi
 
 # 3. Remove Existing Apache2
 update_task_status 2 "In Progress"
-if systemctl status apache2 >/dev/null 2>&1; then
+if systemctl status apache 2>/dev/null 2>&1; then
     sudo apt-get remove --purge apache2 -y >/dev/null 2>&1
     sudo apt-get autoremove -y >/dev/null 2>&1
     sudo apt-get autoclean -y >/dev/null 2>&1
@@ -100,7 +100,7 @@ fi
 
 # 4. Install Apache2
 update_task_status 3 "In Progress"
-sudo apt-get install apache2 -y >/dev/null 2>&1
+sudo apt-get install apache2 -y 
 if [ $? -eq 0 ]; then
     sudo ufw allow 'Apache' >/dev/null 2>&1
     sudo ufw enable >/dev/null 2>&1
@@ -123,14 +123,14 @@ fi
 
 # 6. Remove MySQL Server
 update_task_status 5 "In Progress"
-sudo apt-get remove --purge -y '*mysql*' >/dev/null 2>&1
+sudo apt-get remove --purge -y '*mysql*'
 sudo apt-get autoremove -y >/dev/null 2>&1
 sudo apt-get autoclean -y >/dev/null 2>&1
 update_task_status 5 "Done"
 
 # 7. Install MySQL Server
 update_task_status 6 "In Progress"
-sudo apt-get install mysql-server -y >/dev/null 2>&1
+sudo apt-get install mysql-server -y 
 if [ $? -eq 0 ]; then
     update_task_status 6 "Done"
 else
@@ -188,7 +188,7 @@ fi
 
 # 11. Install PHP
 update_task_status 10 "In Progress"
-sudo apt-get install php libapache2-mod-php -y >/dev/null 2>&1
+sudo apt-get install php libapache2-mod-php -y 
 if [ $? -eq 0 ]; then
     echo "<?php phpinfo(); ?>" | sudo tee /var/www/html/info.php >/dev/null
     sudo systemctl restart apache2 >/dev/null 2>&1

@@ -1,2 +1,4 @@
 test.sh
 commands.sh
+./test
+debug.sh
