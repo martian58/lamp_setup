@@ -1,5 +1,37 @@
 #!/bin/bash
 
+LOCK_FILE="/var/lib/dpkg/lock-frontend"
+LOCK_FILE2="/var/lib/apt/lists/lock"
+
+check_and_kill_lock() {
+    for lock in "$LOCK_FILE" "$LOCK_FILE2"; do
+        if sudo fuser "$lock" &>/dev/null; then
+            echo "🔒 Lock file $lock is in use."
+            PID=$(sudo fuser "$lock" 2>/dev/null)
+            echo "➡️  Process holding the lock: PID $PID"
+
+            read -p "⚠️  Kill this process? [y/N]: " confirm
+            if [[ $confirm == "y" || $confirm == "Y" ]]; then
+                sudo kill -9 $PID
+                echo "✅ Process $PID killed."
+            else
+                echo "❌ Aborted killing process $PID."
+            fi
+        else
+            echo "✅ Lock file $lock is free."
+        fi
+    done
+}
+
+fix_dpkg_if_needed() {
+    echo "🔧 Running 'sudo dpkg --configure -a' to fix interrupted installations..."
+    sudo dpkg --configure -a
+    echo "✅ Done."
+}
+
+check_and_kill_lock
+fix_dpkg_if_needed
+
 # Define Colors
 GREEN="\033[0;32m"
 RED="\033[0;31m"
