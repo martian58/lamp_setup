@@ -1,4 +1,4 @@
 test.sh
 commands.sh
-./test
+test/
 debug.sh

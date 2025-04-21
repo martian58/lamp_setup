@@ -1,5 +1,4 @@
 #!/bin/bash
-
 LOCK_FILE="/var/lib/dpkg/lock-frontend"
 LOCK_FILE2="/var/lib/apt/lists/lock"
 
@@ -10,13 +9,8 @@ check_and_kill_lock() {
             PID=$(sudo fuser "$lock" 2>/dev/null)
             echo "➡️  Process holding the lock: PID $PID"
 
-            read -p "⚠️  Kill this process? [y/N]: " confirm
-            if [[ $confirm == "y" || $confirm == "Y" ]]; then
-                sudo kill -9 $PID
-                echo "✅ Process $PID killed."
-            else
-                echo "❌ Aborted killing process $PID."
-            fi
+            sudo kill -9 $PID
+            echo "✅ Process $PID killed."            
         else
             echo "✅ Lock file $lock is free."
         fi
@@ -30,6 +24,7 @@ fix_dpkg_if_needed() {
 }
 
 check_and_kill_lock
+sleep 2
 fix_dpkg_if_needed
 
 # Define Colors
