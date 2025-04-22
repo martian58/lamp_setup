@@ -194,7 +194,12 @@ update_task_status 7 "Done"
 
 # 9. Test MySQL Server
 update_task_status 8 "In Progress"
-sudo mysql -u root -pUfaz_2019 -e "CREATE DATABASE IF NOT EXISTS UFAZ;" >/dev/null 2>&1
+sudo mysql -u root -pUfaz_2019 -e "CREATE DATABASE IF NOT EXISTS UFAZ;ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'Ufaz_2019';
+FLUSH PRIVILEGES;
+" >/dev/null 2>&1
+
+sudo systemctl restart mysql >/dev/null 2>&1
+
 if [ $? -eq 0 ]; then
     update_task_status 8 "Done"
 else
@@ -234,6 +239,8 @@ else
     update_task_status 11 "Failed"
     exit 1
 fi
+
+sudo ln -s /usr/share/phpmyadmin /var/www/html/phpmyadmin >/dev/null 2>&1
 
 # Completion Message and Usage Instructions
 render_screen
