@@ -253,11 +253,12 @@ echo -e "🌐 ${GREEN}Apache2:${NC} Visit ${YELLOW}http://localhost${NC} to chec
 echo -e "🗄️ ${GREEN}MySQL:${NC} Use ${YELLOW}mysql -u root -p${NC} to access the MySQL console."
 echo -e "🧩 ${GREEN}PHP:${NC} Visit ${YELLOW}http://localhost/info.php${NC} to verify PHP installation."
 echo -e "🛠️ ${GREEN}phpMyAdmin:${NC} Access phpMyAdmin at ${YELLOW}http://localhost/phpmyadmin${NC}."
-echo -e "    Default login is ${YELLOW}root${NC}, and use the MySQL password set during installation."
+echo -e "    Default login is ${YELLOW}root${NC}, and use the MySQL password set during installation. (Ufaz_2019)"
 echo
 echo -e "${BLUE}========================================${NC}"
 echo
 echo -e "🙏 ${GREEN}If you found this script helpful, follow me on GitHub: ${YELLOW}https://github.com/martian58${NC} 🙌"
+echo -e "🛠️ ${GREEN}If you found bugs you can always contribute or create issues.${NC}"
 echo
 echo -e "${BLUE}========================================${NC}"
 echo -e "${YELLOW}Thank you! 🚀${NC}"
